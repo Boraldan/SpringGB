@@ -38,16 +38,13 @@ public class Main {
         //-----------
 
         Person person3 = new Person("Alis", "Smit", 20);
-
         List<Person> personList = new ArrayList<>(Arrays.asList(person2,person3,person));
-
         Collections.sort(personList, new Comparator<Person>() {
             @Override
             public int compare(Person o1, Person o2) {
                 return new CompareToBuilder().append(o1.getAge(), o2.getAge()).toComparison();
             }
         });
-
         System.out.println(personList);
 
     }
