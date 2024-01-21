@@ -1,6 +1,13 @@
 package com.example.demo.repositories;
 
 import com.example.demo.model.User;
+import com.example.demo.util.SqlQuery;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -10,17 +17,13 @@ import java.util.List;
 
 
 @Repository
+@AllArgsConstructor
 public class UserRepository {
 
     private final JdbcTemplate jdbc;
-
-    public UserRepository(JdbcTemplate jdbc) {
-        this.jdbc = jdbc;
-    }
+    private final SqlQuery sqlQuery;
 
     public List<User> findAll() {
-        String sql = "SELECT * FROM userTable";
-
         RowMapper<User> userRowMapper = (r, i) -> {
             User rowObject = new User();
             rowObject.setId(r.getInt("id"));
@@ -28,30 +31,24 @@ public class UserRepository {
             rowObject.setLastName(r.getString("lastName"));
             return rowObject;
         };
-
-        return jdbc.query(sql, userRowMapper);
+        return jdbc.query(sqlQuery.getFindAll(), userRowMapper);
     }
 
     public User save(User user) {
-        String sql = "INSERT INTO userTable VALUES (null, ?, ?)";
-        jdbc.update(sql, user.getFirstName(), user.getLastName());
-        return  user;
+        jdbc.update(sqlQuery.getSave(), user.getFirstName(), user.getLastName());
+        return user;
     }
 
     public void deleteById(int id) {
-        String sql = "DELETE FROM userTable WHERE id=?";
-        jdbc.update(sql, id);
+        jdbc.update(sqlQuery.getDeleteById(), id);
     }
 
-
     public void updateUser(User user) {
-        String sql = "update userTable set firstName=?, lastName=? WHERE id=? ";
-        jdbc.update(sql, user.getFirstName(), user.getLastName(), user.getId());
+        jdbc.update(sqlQuery.getUpdateUser(), user.getFirstName(), user.getLastName(), user.getId());
     }
 
     public User findById(int id) {
-        String sql = "SELECT * FROM userTable WHERE id=? ";
-        return jdbc.query(sql, new Object[]{id},
+        return jdbc.query(sqlQuery.getFindById(), new Object[]{id},
                 new BeanPropertyRowMapper<>(User.class)).stream().findAny().orElse(null);
     }
 }
