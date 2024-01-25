@@ -1,8 +1,10 @@
 package com.example.sem3HomeTask.controllers;
 
+import com.example.sem3HomeTask.domain.TestInfo;
 import com.example.sem3HomeTask.domain.User;
 import com.example.sem3HomeTask.services.RegistrationService;
 import com.example.sem3HomeTask.services.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,8 +46,14 @@ public class UserController {
         if (name == null || age == null || email == null) {
             return "Укажите все параметры для User";
         }
-        User user=  registrationService.getUserService().createUser(name, age, email);
+        User user = registrationService.getUserService().createUser(name, age, email);
         return "User added with param: " + user;
+    }
+
+    @GetMapping("/name")
+    public User userName(@RequestParam(value = "name", required = false) String name,
+                         @RequestParam(value = "age", required = false) Integer age) {
+        return registrationService.getDataProcessingService().findCustom(name, age);
     }
 }
 

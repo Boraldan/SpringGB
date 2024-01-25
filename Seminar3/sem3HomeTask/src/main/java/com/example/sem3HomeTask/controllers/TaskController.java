@@ -2,6 +2,7 @@ package com.example.sem3HomeTask.controllers;
 
 import com.example.sem3HomeTask.domain.User;
 import com.example.sem3HomeTask.services.DataProcessingService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

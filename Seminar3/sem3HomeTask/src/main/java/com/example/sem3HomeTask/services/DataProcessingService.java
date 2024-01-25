@@ -20,6 +20,11 @@ public class DataProcessingService {
 
     public List<User> sortUsersByAge() {
         return userRepository.findAll().stream()
+                .sorted(Comparator.comparing(User::getAge)).toList();
+    }
+
+    public List<User> sortUsersByAge(List<User> users) {
+        return users.stream()
                 .sorted(Comparator.comparing(User::getAge))
                 .collect(Collectors.toList());
     }
@@ -43,12 +48,6 @@ public class DataProcessingService {
                 .orElse(0);
     }
 
-    public List<User> sortUsersByAge(List<User> users) {
-        return users.stream()
-                .sorted(Comparator.comparing(User::getAge))
-                .collect(Collectors.toList());
-    }
-
     @Transactional
     public void saveUser(User user) {
         userRepository.save(user);
@@ -58,4 +57,8 @@ public class DataProcessingService {
         return userRepository.findAll();
     }
 
+
+    public User findCustom(String name, int age) {
+        return userRepository.findCustom(name, age);
+    }
 }
