@@ -12,7 +12,10 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
-//@Query("FROM Task t WHERE t.taskStatus = :taskStatus")
-@Query("FROM Task t WHERE t.taskStatus = ?1")
-List<Task> findByTaskStatus(@Param("taskStatus") TaskStatus status);
+    //// вариант запроса вручную
+////@Query("FROM Task t WHERE t.taskStatus = :taskStatus")
+//@Query("FROM Task t WHERE t.taskStatus = ?1")
+//List<Task> findByTaskStatus(@Param("taskStatus") TaskStatus status);
+
+    List<Task> findTasksByTaskStatus(TaskStatus taskStatus);
 }

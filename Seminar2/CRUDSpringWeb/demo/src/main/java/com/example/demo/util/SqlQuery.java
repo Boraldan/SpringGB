@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 @ConfigurationProperties("sqlquery")
-@PropertySource("classpath:sql.properties")
+@PropertySource("classpath:apiurl.properties")
 public class SqlQuery {
 
     private String findAll;

@@ -24,10 +24,15 @@ public class TaskService {
         task.setCreatAt(LocalDateTime.now());
         return taskRepo.save(task);
     }
+//
+//    public List<Task> getTasksByStatus(TaskStatus status) {
+//        return taskRepo.findByTaskStatus(status);
+//    }
 
     public List<Task> getTasksByStatus(TaskStatus status) {
-        return taskRepo.findByTaskStatus(status);
+        return taskRepo.findTasksByTaskStatus(status);
     }
+
 
     public Task updateTaskStatus(Long id, Task task) {
         Task dbTask = taskRepo.findById(id).orElse(null);
