@@ -17,14 +17,13 @@ public class ServiceApiImpl implements ServiceApi {
 
     private RestTemplate template;
     private HttpHeaders headers;
-    private Url url;
-
+    private final Url URL;
 
     @Override
     public Characters getAllCharacters() {
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity<>(headers);
-        ResponseEntity<Characters> responce = template.exchange(url.getCHARACTER_API(), HttpMethod.GET, entity, Characters.class);
+        ResponseEntity<Characters> responce = template.exchange(URL.getCHARACTER_API(), HttpMethod.GET, entity, Characters.class);
         return responce.getBody();
     }
 
@@ -33,7 +32,7 @@ public class ServiceApiImpl implements ServiceApi {
         String urlPage = "?page=" + page;
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity<>(headers);
-        ResponseEntity<Characters> responce = template.exchange(url.getCHARACTER_API() + urlPage, HttpMethod.GET, entity, Characters.class);
+        ResponseEntity<Characters> responce = template.exchange(URL.getCHARACTER_API() + urlPage, HttpMethod.GET, entity, Characters.class);
         return responce.getBody();
     }
 
@@ -41,7 +40,7 @@ public class ServiceApiImpl implements ServiceApi {
     public Result getCharById(int id) {
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity<>(headers);
-        ResponseEntity<Result> responce = template.exchange(url.getCHAR_ID_API().formatted(id),
+        ResponseEntity<Result> responce = template.exchange(URL.getCHAR_ID_API().formatted(id),
                 HttpMethod.GET, entity, Result.class);
         return responce.getBody();
     }

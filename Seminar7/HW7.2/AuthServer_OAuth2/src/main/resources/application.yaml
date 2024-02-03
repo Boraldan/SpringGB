@@ -1,0 +1,19 @@
+server:
+  port: 8079
+spring:
+  output.ansi.enabled: ALWAYS
+  datasource:
+    url: jdbc:postgresql://localhost:5432/oa2_server
+    username: postgres
+    password: 123
+  sql:
+    init:
+      mode: always
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        security: trace
+
+secret:
+  key: $2a$12$Gx9MVqU0oy9qpgU.v58ZueJ1G9K8BCJay2lzQnKe.v.URlCF3vMjG

@@ -28,16 +28,14 @@ public class ControllerAPI {
     public String getCharacters(Model model, @RequestParam(value = "pageNumber", required = false) Integer pageNumber) {
         if (pageNumber == null) {
             Characters allCharacters = serviceApi.getAllCharacters();
-            int currentPage = 5;
             model.addAttribute("characters", allCharacters.getResults());
             model.addAttribute("info", allCharacters.getInfo());
-            model.addAttribute("currentPage", currentPage);
+            model.addAttribute("currentPage", 5);
         } else {
             Characters allCharacters = serviceApi.getAllCharacters(pageNumber);
-            int currentPage = pageNumber;
             model.addAttribute("characters", allCharacters.getResults());
             model.addAttribute("info", allCharacters.getInfo());
-            model.addAttribute("currentPage", currentPage);
+            model.addAttribute("currentPage", pageNumber);
         }
         return "index";
     }
