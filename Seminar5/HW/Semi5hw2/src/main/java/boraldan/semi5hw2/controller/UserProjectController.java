@@ -23,6 +23,11 @@ public class UserProjectController {
 
     private final UserProjectService userProjectService;
 
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> getAllUsers() {
+        return ResponseEntity.ok(userProjectService.getAllUsers());
+    }
+
     @GetMapping("/users/{projectId}")
     public ResponseEntity<List<User>> getUsersByProjectId(@PathVariable Long projectId) {
         return ResponseEntity.ok(userProjectService.getUsersByProjectId(projectId));

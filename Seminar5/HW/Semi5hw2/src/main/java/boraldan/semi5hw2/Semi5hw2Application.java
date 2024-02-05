@@ -8,6 +8,8 @@ public class Semi5hw2Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Semi5hw2Application.class, args);
+
+
 	}
 
 }

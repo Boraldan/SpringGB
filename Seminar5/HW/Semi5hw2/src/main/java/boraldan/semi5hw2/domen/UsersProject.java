@@ -3,8 +3,6 @@ package boraldan.semi5hw2.domen;
 import jakarta.persistence.*;
 import lombok.*;
 
-
-
 /**
  * Создайте сущность "пользователи проекта" (UsersProject),
  * которая наследуется от класса "сущность с связью" и будет содержать следующие поля:

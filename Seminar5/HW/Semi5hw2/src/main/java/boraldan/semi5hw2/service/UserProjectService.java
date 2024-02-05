@@ -1,11 +1,10 @@
 package boraldan.semi5hw2.service;
 
+import boraldan.semi5hw2.aspect.TrackUserAction;
 import boraldan.semi5hw2.domen.Project;
 import boraldan.semi5hw2.domen.User;
-import boraldan.semi5hw2.domen.UsersProject;
 import boraldan.semi5hw2.repository.ProjectRepository;
 import boraldan.semi5hw2.repository.UserRepository;
-import boraldan.semi5hw2.repository.UsersProjectRepository;
 import lombok.AllArgsConstructor;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
@@ -25,11 +24,16 @@ import java.util.List;
 @AllArgsConstructor
 @Transactional(readOnly = true)
 public class UserProjectService {
-
     private final UserRepository userRepo;
+
     private final ProjectRepository projectRepo;
 
+    @TrackUserAction
+    public List<User> getAllUsers() {
+        return userRepo.findAll();
+    }
 
+    @TrackUserAction
     public List<User> getUsersByProjectId(Long projectId) {
         Project project = projectRepo.findById(projectId).orElse(null);
         Hibernate.initialize(project.getUsers());
@@ -68,5 +72,4 @@ public class UserProjectService {
         project.setCreatedDate(LocalDate.now());
         return projectRepo.save(project);
     }
-
 }
